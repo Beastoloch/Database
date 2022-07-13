@@ -1,0 +1,41 @@
+ЗАПРОСЫ:
+1)
+SELECT O_DATE, WP_NAME, WP_PRIVILAGE 
+FROM Заказз
+JOIN Места_Работы USING(WP_id) 
+ORDER BY O_DATE;
+ 
+
+2)
+SELECT AP_name, WP_name, WP_address, AP_city FROM ЗАКАЗЫЫ 
+JOIN Места_работы USING(WP_id)
+JOIN Техник USING(T_id)
+JOIN Автопредприятия USING(AP_id) 
+WHERE(WP_privilage >= 2) AND (WP_address = AP_city)
+ 
+3)
+SELECT DISTINCT WP_name FROM Заказз 
+JOIN Места_работы USING(WP_id)
+JOIN Техник USING(T_id)
+JOIN Автопредприятия USING(AP_id)
+WHERE AP_city != 'Томск' 
+ORDER BY WP_name;
+ 
+
+4)
+SELECT DISTINCT WP_name, COUNT(WP_ID) as count 
+FROM Заказз 
+JOIN Места_работы USING(WP_id) 
+GROUP BY WP_name
+HAVING COUNT(WP_ID) > 2
+ 
+5)
+SELECT DISTINCT AP_name, AP_com FROM(
+SELECT AP_name, AP_com, MAX(AP_com) OVER () as max
+FROM Заказз 
+JOIN Техник USING(T_id)
+JOIN Автопредприятия USING(AP_id)
+WHERE O_DATE BETWEEN '26.06.02' AND '25.08.02')
+WHERE max = AP_com
+ 
+6) ;(
