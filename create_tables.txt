@@ -1,0 +1,92 @@
+Серебров Максим, гр. 19208
+CREATE TABLE Места_Работы(
+WP_id INT PRIMARY KEY,
+WP_name VARCHAR2(100) NOT NULL UNIQUE,
+WP_address VARCHAR2(100) NOT NULL UNIQUE,
+WP_privilage INT NOT NULL CHECK(WP_privilage>=0)
+);
+BEGIN
+INSERT INTO Места_Работы VALUES (1, 'Завод Металлмаш', 'Томск', 3);
+INSERT INTO Места_Работы VALUES (2, 'Швейная фабрика Надежда', 'Кемерово', 2);
+INSERT INTO Места_Работы VALUES (3, 'Мебельная фабрика ПАПА КАРЛО', 'Барнаул', 5);
+INSERT INTO Места_Работы VALUES (4, 'OAO Respekt', 'Новосибирск', 1);
+INSERT INTO Места_Работы VALUES (5, 'Искитим Цемент', 'Искитим', 6);
+INSERT INTO Места_Работы VALUES (6, 'Детский сад Огонек', 'Новосибирск', 3);
+INSERT INTO Места_Работы VALUES (7, 'Детский сад Вишенки', 'Новосибирск', 1);
+INSERT INTO Места_Работы VALUES (8, 'Школа №166', 'Новосибирск', 2);
+INSERT INTO Места_Работы VALUES (9, 'Ночной клуб Batisso', 'Новосибирск', 3);
+INSERT INTO Места_Работы VALUES (10, 'СДС Азот', 'Кемерово', 6);
+INSERT INTO Места_Работы VALUES (11, 'Мебельная фабрика ', 'Томск', 4);
+INSERT INTO Места_Работы VALUES (12, 'Мебельная фабрика КАМЕЯ', 'Новосибирск', 101);
+END;
+ 
+
+
+
+CREATE TABLE Автопредприятия(
+AP_id INT PRIMARY KEY,
+AP_name VARCHAR2(100) NOT NULL UNIQUE,
+AP_city VARCHAR2(100) NOT NULL,
+AP_com INT NOT NULL CHECK(AP_com>=0)
+);
+BEGIN
+INSERT INTO Автопредприятия VALUES (1, 'Арт-Транс',  'Новосибирск', 3);
+INSERT INTO Автопредприятия VALUES (2, 'АвтоБосс',   'Томск', 1);
+INSERT INTO Автопредприятия VALUES (3, 'Автотранс-2', 'Кемерово', 2);
+INSERT INTO Автопредприятия VALUES (4, 'ПТП 5',	 'Новосибирск',3);
+INSERT INTO Автопредприятия VALUES (5, 'Альтернатива','Искитим', 4);
+INSERT INTO Автопредприятия VALUES (6, 'Перевоз', 'Барнаул', -1);
+END;
+ 
+
+
+
+CREATE TABLE Техник(
+T_id INT PRIMARY KEY,
+T_type VARCHAR(100) NOT NULL, 
+AP_id INT REFERENCES Автопредприятия(AP_id),
+T_num INT NOT NULL CHECK(T_num>0),
+T_price INT
+);
+BEGIN
+INSERT INTO Техник VALUES (1, 'Автокран', 1, 3, 7100);
+INSERT INTO Техник VALUES (2, 'Бульдозер', 4, 5, 8500);
+INSERT INTO Техник VALUES (3, 'Грузовик',5, 10,3000);
+INSERT INTO Техник VALUES (4, 'Цементовоз',2, 6, 9300);
+INSERT INTO Техник VALUES (5, 'Грейдер',3, 4, 6900);
+INSERT INTO Техник VALUES (6, 'Трактор',5, 2, NULL);
+END;
+ 
+
+
+
+CREATE TABLE Заказз(
+O_id INT PRIMARY KEY,
+O_date DATE NOT NULL,
+O_days INT NOT NULL CHECK(O_days >= 0),
+WP_id INT REFERENCES Места_Работы(WP_id),
+T_id INT REFERENCES Техник(T_id),
+O_num INT NOT NULL CHECK(O_num > 0)
+);
+BEGIN
+INSERT INTO Заказыы VALUES (1,'5.05.2002',3,1,4,2);
+INSERT INTO Заказыы VALUES (2,'7.05.2002',5,10,2,1);
+INSERT INTO Заказыы VALUES (3,'12.05.2002',1,8,1,1);
+INSERT INTO Заказыы VALUES (4,'3.06.2002',4,3,3,4);
+INSERT INTO Заказыы VALUES (5,'7.06.2002',3,4,1,3);
+INSERT INTO Заказыы VALUES (6,'18.06.2002',5,7,3,2);
+INSERT INTO Заказыы VALUES (7,'25.06.2002',2,11,1,1);
+INSERT INTO Заказыы VALUES (8,'3.07.2002',4,5,2,2);
+INSERT INTO Заказыы VALUES (9,'15.07.2002',5,2,2,1);
+INSERT INTO Заказыы VALUES (10,'5.08.2002',1,8,2,3);
+INSERT INTO Заказыы VALUES (11,'12.08.2002',2,2,4,2);
+INSERT INTO Заказыы VALUES (12,'16.08.2002',1,6,4,1);
+INSERT INTO Заказыы VALUES (13,'25.08.2002',3,1,1,2);
+INSERT INTO Заказыы VALUES (14,'15.09.2002',1,9,3,3);
+INSERT INTO Заказыы VALUES (15,'7.10.2002',5,7,1,2);
+INSERT INTO Заказыы VALUES (16,'21.10.2002',4,5,1,1);
+INSERT INTO Заказыы VALUES (17,'3.11.2002',2,8,4,2);
+INSERT INTO Заказыы VALUES (18,'13.11.2002',1,3,3,7);
+INSERT INTO Заказыы VALUES (19,'17.11.2002',5,3,1,2);
+INSERT INTO Заказыы VALUES (20,'24.11.2002',1,4,3,3);
+END;
